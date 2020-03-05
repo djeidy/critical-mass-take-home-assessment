@@ -1,25 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from 'react';
+
+import Json from "./navigation";
+import Tabs from "./Tabs";
+
+
+const cities = Json.cities;
 
 function App() {
+  const [active, setActive] = useState(cities[0].section);
+  const renderedCities = cities.map(city=>{
+    return <div key={city.section}>{city.label}</div>
+  });
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Tabs
+      active={active}
+      onChange={active=> setActive(active)}
+    >
+      {renderedCities}
+    </Tabs>
   );
 }
 
